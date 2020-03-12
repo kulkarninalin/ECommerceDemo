@@ -1,0 +1,210 @@
+
+<!doctype html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="common/header :: common-header" />
+
+<body>
+	<div th:replace="common/header :: navbar"></div>
+
+	<div class="container">
+		<div class="row" style="margin-bottom: -100px;">
+			<div class="col-xs-8">
+				<h2 class="section-headline">
+					<span th:text="${#strings.toUpperCase{user.username}}"></span> <span>User
+						Account</span>
+				</h2>
+			</div>
+			<div class="col-xs-4">
+				<img src="/img/img-logo.png" class="img-responsive">
+			</div>
+		</div>
+		<hr
+			style="position: absolute; width: 100%; height: 6px; background-color: #333; z-index: -1; margin-top: -80px;" />
+
+		<img class="img-responsive" src="/img/wood.png"
+			style="margin-top: -75px" />
+
+		<div class="row" style="margin-top: 120px;">
+			<div class="col-xs-9 col-xs-offset-3">
+				<ul class="nav nav-tabs">
+					<li th:classappend="${classActiveEdit}? active"><a
+						href="#tab-1" data-toggle="tab"><span>Edit</span></a></li>
+					<li th:classappend="${classActiveOrder}? active"><a
+						href="#tab-2" data-toggle="tab"><span>Orders</span></a></li>
+					<li th:classappend="${classActiveBilling}? active"><a
+						href="#tab-3" data-toggle="tab"><span>Billing</span></a></li>
+					<li th:classappend="${classActiveShipping}? active"><a
+						href="#tab-4" data-toggle="tab"><span>Shipping</span></a></li>
+				</ul>
+
+				<div class="tab-content">
+
+					<!-- Create new user pannel -->
+					<div class="tab-pane fade" id="tab-1"
+						th:classappend="${classActiveEdit}? 'in active'">
+						<div class="panel-group">
+							<div class="panel panel-default" style="border: none;">
+								<div class="panel-body"
+									style="background-color: #ededed; margin-top: 20px">
+									<form th:action="@{/updateUserInfo}" method="post">
+
+										<input type="hidden" name="id" th:value="${user.id}">
+
+										<div class="bg-info" th:if="${updateUserInfo}">User info
+											updated</div>
+
+										<div class="form-group">
+											<div class="row">
+												<div class="col-xs-6">
+													<label for="firstName">First Name</label> <input
+														type="text" class="form-control" name="firstName"
+														id="firstName" th:value="${user.firstName}" />
+												</div>
+
+												<div class="col-xs-6">
+													<label for="lastName">Last Name</label> <input type="text"
+														class="form-control" name="lastName" id="lastName"
+														th:value="${user.lastName}" />
+												</div>
+											</div>
+										</div>
+
+
+										<div class="form-group">
+											<label for="userName">User Name</label> <input type="text"
+												class="form-control" name="userName" id="userName"
+												th:value="${user.userName}" />
+										</div>
+										
+										<div class="form-group">
+											<label for="currentPassword">Current Password</label> <input type="password"
+												class="form-control" name="currentPassword" id="currentPassword"
+												th:value="${user.currentPassword}" />
+										</div>
+										<p style="color:#828282">Enter your current password to change the email address or password</p>
+
+
+										<div class="form-group">
+											<label for="email">Email</label> <input type="text"
+												class="form-control" name="email" id="email"
+												th:value="${user.email}" />
+										</div>
+										<p style="color:#828282">Enter email address </p>
+										
+										
+										<div class="form-group">
+											<label for="txtNewPassword">Password</label> <input type="password"
+												class="form-control" name="newPassword" id="txtNewPassword"
+												th:value="${user.txtNewPassword}" />
+										</div>
+										
+										<div class="form-group">
+											<label for="txtconfirmPassword">Confirm Password</label> <input type="password"
+												class="form-control" name="newPassword" id="txtconfirmPassword"
+												th:value="${user.txtconfirmPassword}" />
+										</div>
+										
+										
+										<button type="submit" class="btn btn-primary">Create
+											New Account</button>
+
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<!-- Login Pannel -->
+					<div class="tab-pane fade" id="tab-2"
+						th:classappend="${classActiveOrder}? 'in active'">
+						<div class="panel-group">
+							<div class="panel panel-default" style="border: none;">
+								<div class="panel-body"
+									style="background-color: #ededed; margin-top: 20px">
+									<form>
+										<div class="form-group">
+											<label for="newUsername">* Username</label> <input
+												required="required" type="text" class="form-control"
+												id="newUsername" name="username" />
+											<p style="color: #828282">Enter your Username</p>
+										</div>
+
+										<div class="form-group">
+											<label for="email">* Password</label> <input
+												required="required" type="password" class="form-control"
+												id="email" name="email" />
+											<p style="color: #828282">Enter your Password address</p>
+										</div>
+
+										<button type="submit" class="btn btn-primary">Login</button>
+
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+
+
+					<!-- Forget Password panel -->
+					<div class="tab-pane fade" id="tab-3"
+						th:classappend="${classActiveBilling}? 'in active'">
+						<div class="panel-group">
+							<div class="panel panel-default" style="border: none;">
+								<div class="panel-body"
+									style="background-color: #ededed; margin-top: 20px">
+									<form>
+										<div class="form-group">
+											<label for="recoverEmail">* Email</label> <input
+												required="required" type="text" class="form-control"
+												id="recoverEmail" name="email" />
+											<p style="color: #828282">Enter your Email</p>
+										</div>
+
+
+
+										<button type="submit" class="btn btn-primary">Submit</button>
+
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="tab-pane fade" id="tab-4"
+						th:classappend="${classActiveShipping}? 'in active'">
+						<div class="panel-group">
+							<div class="panel panel-default" style="border: none;">
+								<div class="panel-body"
+									style="background-color: #ededed; margin-top: 20px">
+									<form>
+										<div class="form-group">
+											<label for="recoverEmail">* Email</label> <input
+												required="required" type="text" class="form-control"
+												id="recoverEmail" name="email" />
+											<p style="color: #828282">Enter your Email</p>
+										</div>
+
+
+
+										<button type="submit" class="btn btn-primary">Submit</button>
+
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</div>
+
+	</div>
+
+
+
+	<!-- End of container -->
+
+	<div th:replace="common/header :: body-bottom-scripts"></div>
+
+</body>
+</html>
